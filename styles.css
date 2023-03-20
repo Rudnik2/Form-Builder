@@ -27,7 +27,12 @@ body {
   padding-bottom: 50px;
   min-height: 100%;
 }
-
+h1 {
+  font-weight: 700;
+  font-size: 62px;
+  margin-left: 75px;
+  color: #087f5b;
+}
 button,
 select,
 input {
