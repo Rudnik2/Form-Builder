@@ -23,7 +23,8 @@ body {
 h1 {
   font-weight: 700;
   font-size: 62px;
-  margin-left: 75px;
+  padding-left: 15px;
+  margin: auto;
   color: #087f5b;
 }
 
@@ -213,7 +214,7 @@ div {
 }
 
 /* --- MEDIA --- */
-@media only screen and (min-width: 550px) and (max-width: 957px) {
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
   .container {
     margin-left: 5vh;
   }
@@ -245,7 +246,16 @@ div {
     margin: 5px;
   }
 }
-@media (max-width: 549px) {
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+  h1 {
+    font-size: 32px;
+  }
+  .starterButton {
+    font-size: 24px;
+  }
+  .button-0 {
+    font-size: 18px;
+  }
   .container {
     margin-left: 0vh;
   }
@@ -268,11 +278,64 @@ div {
     max-width: 350px;
     flex-direction: column;
   }
+  div {
+    margin: 10px 0px 10px 10px;
+  }
   .subContainer div {
     margin: 0px 0px 10px 0px;
   }
 
   .subContainer button {
     margin: 5px;
+  }
+}
+@media (max-width: 480px) {
+  h1 {
+    font-size: 32px;
+  }
+  .starterButton {
+    font-size: 18px;
+  }
+  .button-0 {
+    font-size: 18px;
+  }
+  .container {
+    margin-left: 0vh;
+  }
+  .inputsDiv {
+    flex-direction: column;
+  }
+  .conditionDiv,
+  .questionDiv,
+  .typeDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .conditionDiv select {
+    margin-bottom: 15px;
+  }
+  .subContainer {
+    min-width: 250px;
+    max-width: 250px;
+    flex-direction: column;
+  }
+  .questionInput,
+  .conditionInput {
+    width: 80%;
+  }
+  div {
+    margin: 10px 0px 10px 10px;
+  }
+  .subContainer div {
+    margin: 0px 0px 10px 0px;
+  }
+
+  .subContainer button {
+    margin: 5px;
+  }
+  .footer {
+    font-size: 12px;
   }
 }
