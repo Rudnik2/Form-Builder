@@ -17,6 +17,8 @@ body {
 .container {
   box-sizing: border-box;
   flex: 1 0 auto;
+  margin-top: auto;
+  margin-bottom: auto;
   padding-bottom: 50px;
   min-height: 100%;
 }
