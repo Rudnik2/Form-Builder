@@ -1,12 +1,13 @@
 `use strict`;
-function verifyInput(sentInput) {
-  const depth = Number(sentInput.getAttribute("depth"));
-  const whichDiv = Number(sentInput.getAttribute("whichDiv"));
+function verifyInput(sentButton) {
+  const depth = Number(sentButton.getAttribute("depth"));
+  const whichDiv = Number(sentButton.getAttribute("whichDiv"));
   const parentDiv = document.getElementById(`depth--${depth}-${whichDiv}`);
   const depthDivId = document.getElementsByClassName("depth--" + (depth + 1));
   let warningMessage = document.createElement("p");
   warningMessage.classList.add("warning");
 
+  //Check if parent class have element with "warning" class
   parentDiv.childNodes.forEach((child) => {
     if (
       typeof child === "object" &&
@@ -23,7 +24,7 @@ function verifyInput(sentInput) {
     // Creation of our first input
     try {
       console.log("successfully created first input");
-      addInput(sentInput, depth, whichDiv, depthDivId);
+      addInput(sentButton, depth, whichDiv, depthDivId);
     } catch (e) {
       console.log(e);
     }
@@ -31,6 +32,7 @@ function verifyInput(sentInput) {
     if (parentDiv.querySelector(".questionInput").value === "") {
       // If Question is empty
       console.log("Provide question input");
+
       warningMessage.textContent = "Question is empty";
       parentDiv.appendChild(warningMessage);
       parentDiv.classList.remove("horizontalShake");
@@ -40,13 +42,13 @@ function verifyInput(sentInput) {
     } else {
       try {
         console.log("successfully created input on depth number 1");
-        addInput(sentInput, depth, whichDiv, depthDivId);
+        addInput(sentButton, depth, whichDiv, depthDivId);
       } catch (e) {
         console.log(e);
       }
     }
   } else {
-    //Handling radio
+    //If radiobutton was clicked
     if (parentDiv.parentElement.querySelector("#type").value === "yesno") {
       if (
         parentDiv.querySelector("fieldset").querySelector(`input:checked`)
@@ -66,13 +68,13 @@ function verifyInput(sentInput) {
         } else {
           try {
             console.log("successfully created new input type of yes/no");
-            addInput(sentInput, depth, whichDiv, depthDivId);
+            addInput(sentButton, depth, whichDiv, depthDivId);
           } catch (e) {
             console.log(e);
           }
         }
       } else {
-        //If Radio was not clicked
+        //If radiobutton was not clicked
         console.log("Click radio button");
         warningMessage.textContent = "Radio not clicked";
         parentDiv.appendChild(warningMessage);
@@ -85,7 +87,7 @@ function verifyInput(sentInput) {
       parentDiv.parentElement.querySelector("#type").value === "text" ||
       parentDiv.parentElement.querySelector("#type").value === "number"
     ) {
-      //Handling condition input
+      //If condition input was not filled
       if (parentDiv.querySelector(".conditionInput").value === "") {
         console.log("Add condition input");
         warningMessage.textContent = "Please provide condition";
@@ -95,7 +97,7 @@ function verifyInput(sentInput) {
           parentDiv.classList.add("horizontalShake");
         });
       } else {
-        //If condition is provided
+        //If condition was provided
         if (parentDiv.querySelector(".questionInput").value === "") {
           // If Question is empty
           console.log("Add question input");
@@ -110,7 +112,7 @@ function verifyInput(sentInput) {
             console.log(
               "successfully created new input with type of text/number"
             );
-            addInput(sentInput, depth, whichDiv, depthDivId);
+            addInput(sentButton, depth, whichDiv, depthDivId);
           } catch (e) {
             console.log(e);
           }

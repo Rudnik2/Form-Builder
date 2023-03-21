@@ -1,26 +1,25 @@
 `use strict`;
 
-function addInput(addedInput, depth, whichDiv, depthDivId) {
+function addInput(sentButton, depth, whichDiv, depthDivId) {
   //Determine in which div create new element
   const parentDiv = document.getElementById(`depth--${depth}-${whichDiv}`);
 
-  //Creation sub-form
+  //Creation sub-div
   const newDiv = document.createElement("div");
   newDiv.setAttribute("id", `depth--${depth + 1}-${depthDivId.length}`);
   newDiv.setAttribute("class", `depth--${depth + 1}`);
 
   //Creation container div for all options in input
-  const containerDiv = document.createElement("div");
-  containerDiv.setAttribute("class", "containerDiv");
-  let inputDiv = document.createElement("div");
-  inputDiv.setAttribute("class", "inputDiv");
+  const subContainer = document.createElement("div");
+  subContainer.setAttribute("class", "subContainer");
+  subContainer.classList.add("show");
+
+  const inputsDiv = document.createElement("div");
+  inputsDiv.setAttribute("class", "inputsDiv");
 
   const addButtonDiv = document.createElement("div");
   addButtonDiv.setAttribute("class", "addButtonDiv");
 
-  //Create sub input
-  // const newInput = document.createElement("input");
-  // newInput.setAttribute("class", "formInput");
   const newInput = `
       <div class="questionDiv">
         <p>Question:</p>
@@ -41,10 +40,12 @@ function addInput(addedInput, depth, whichDiv, depthDivId) {
             </select>
         </div>
       `;
-  if (addedInput.matches(".starterButton")) {
-    addedInput.classList.remove("starterButton");
-    addedInput.classList.add("button-0");
-    addedInput.innerHTML = `
+
+  //If we've created our first element we should change button
+  if (sentButton.matches(".starterButton")) {
+    sentButton.classList.remove("starterButton");
+    sentButton.classList.add("button-0");
+    sentButton.innerHTML = `
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 20 20"
@@ -58,11 +59,10 @@ function addInput(addedInput, depth, whichDiv, depthDivId) {
         />
       </svg>
   
-      <span>Add input</span>
-      `;
+      <span>Add input</span>`;
   }
+
   if (depth !== 0) {
-    //Create condition
     const firstConditionPart =
       parentDiv.querySelector("#type").value === "text" ||
       parentDiv.querySelector("#type").value === "yesno"
@@ -80,10 +80,9 @@ function addInput(addedInput, depth, whichDiv, depthDivId) {
               <option value="equals">Equals</option>
               <option value="greaterThan">Greater than</option>
               <option value="lessThan">Less than</option>
-            </select>
-          `;
+            </select>`;
 
-    inputDiv.innerHTML =
+    inputsDiv.innerHTML =
       parentDiv.querySelector("#type").value === "text" ||
       parentDiv.querySelector("#type").value === "number"
         ? firstConditionPart +
@@ -93,8 +92,7 @@ function addInput(addedInput, depth, whichDiv, depthDivId) {
                 onfocus="this.placeholder=''"
                 onblur="this.placeholder = 'Provide condition'"
                 >
-              </div>
-            `
+              </div>`
         : firstConditionPart +
           `
               <fieldset id="fieldset--${depth + 1}-${depthDivId.length}">
@@ -103,9 +101,8 @@ function addInput(addedInput, depth, whichDiv, depthDivId) {
                   id="yes--${depth + 1}-${depthDivId.length}"
                   name="fieldset--${depth + 1}-${depthDivId.length}"
                   value="yes">
-                  <label for="yes--${depth + 1}-${
-            depthDivId.length
-          }">Yes</label>
+                  <label for="yes--${depth + 1}-${depthDivId.length}">Yes
+                  </label>
                 </div>
                 <div> 
                   <input type="radio" 
@@ -115,43 +112,36 @@ function addInput(addedInput, depth, whichDiv, depthDivId) {
                   <label for="no--${depth + 1}-${depthDivId.length}">No</label>
                 </div>
               </fieldset>
-            </div>
-            `;
+            </div>`;
   }
 
-  //Create sub button
+  //Create button for creating sub elements
   const newButton = `
       <button
         onClick="verifyInput(this)"
         depth="${depth + 1}"
-        whichDiv="${depthDivId.length}"
-      >
+        whichDiv="${depthDivId.length}">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 20 20"
         fill="currentColor"
-        class="w-5 h-5 addIcon"
-      >
+        class="w-5 h-5 addIcon">
         <path
           fill-rule="evenodd"
           d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-11.25a.75.75 0 00-1.5 0v2.5h-2.5a.75.75 0 000 1.5h2.5v2.5a.75.75 0 001.5 0v-2.5h2.5a.75.75 0 000-1.5h-2.5v-2.5z"
-          clip-rule="evenodd"
-        />
+          clip-rule="evenodd"/>
       </svg>
       <span>Add input</span>
-    </button>
-`;
+    </button>`;
 
-  inputDiv.innerHTML += newInput;
-  inputDiv.innerHTML += questionType;
+  inputsDiv.innerHTML += newInput;
+  inputsDiv.innerHTML += questionType;
 
   addButtonDiv.innerHTML += newButton;
 
-  containerDiv.appendChild(inputDiv);
-  containerDiv.appendChild(addButtonDiv);
-  newDiv.appendChild(containerDiv);
-
-  containerDiv.classList.add("show");
+  subContainer.appendChild(inputsDiv);
+  subContainer.appendChild(addButtonDiv);
+  newDiv.appendChild(subContainer);
   parentDiv.appendChild(newDiv);
 }
 

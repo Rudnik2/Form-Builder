@@ -1,11 +1,8 @@
 :root {
   --dark-bg: hsl(0, 0%, 8%);
-  --bg-color: #03256c;
   --main-color: #0ca678;
   --font-color: #212529;
-  /* --main-color: #087f5b; */
-  --ligh-bg-color: #81a4cd;
-  --accent: #f17300;
+  --left-gradient: #9df0ac;
 }
 body {
   font-family: "Inter", sans-serif;
@@ -16,14 +13,10 @@ body {
   height: 100vh;
   margin: 0px;
   font-size: 18px;
-  /* padding: 0px; */
 }
 .container {
   box-sizing: border-box;
   flex: 1 0 auto;
-  /* width: 60vh; */
-  margin-top: auto;
-  margin-bottom: auto;
   padding-bottom: 50px;
   min-height: 100%;
 }
@@ -33,16 +26,14 @@ h1 {
   margin-left: 75px;
   color: #087f5b;
 }
+
+/* --- INPUTS --- */
 button,
 select,
 input {
   font-family: inherit;
   color: var(--font-color);
   font-size: 18px;
-
-  /* background-color: #087f5b; */
-
-  /* color: var(--main-color); */
 }
 
 input[type="text"] {
@@ -79,34 +70,12 @@ select {
   outline: none;
   border-radius: 2px;
 }
-
-select.decorated option {
-  background-color: red;
-}
 .warning {
   color: red;
   font-weight: 700;
   margin-left: 25px;
 }
-
-/* select:focus > option:hover {
-  background-color: red;
-  cursor: pointer;
-} */
-/* .conditionDiv,
-.questionDiv,
-.typeDiv {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-} */
-
-/* .inputDiv {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-} */
+/* --- BUTTONS --- */
 button {
   display: flex;
   box-sizing: border-box;
@@ -119,16 +88,12 @@ button {
   margin-right: 5px;
   border: none;
   letter-spacing: -0.5px;
-  /* border: 2px solid var(--accent); */
-
-  /* background-color: var(--accent); */
 }
 button:hover {
   cursor: pointer;
   box-shadow: 0px 5px 5px 5px rgb(0, 0, 0, 0.2);
 }
 button:active {
-  /* background-color: #3e8e41; */
   cursor: grab;
   box-shadow: 0 5px 5px rgb(0, 0, 0, 0.2);
   transform: translateY(2px);
@@ -141,31 +106,6 @@ button span {
   fill: var(--main-color);
   height: 18px;
   width: 18px;
-}
-.containerDiv {
-  display: flex;
-  box-sizing: border-box;
-  /* overflow: hidden; */
-  flex-flow: row wrap;
-  align-items: center;
-  justify-content: space-between;
-  box-sizing: border-box;
-  border: 1px solid var(--main-color);
-  /* background-image: linear-gradient(to right, #9ae17b, var(--main-color)); */
-  background-image: linear-gradient(to right, #9df0ac, var(--main-color));
-  max-width: 750px;
-  min-width: 750px;
-  border-radius: 10px;
-}
-.containerDiv div {
-  margin: 10px 0px 10px 25px;
-  padding: 0 10px;
-}
-.containerDiv p {
-  display: inline-block;
-}
-div {
-  margin: 10px 0px 10px 25px;
 }
 .starterAddIcon {
   fill: var(--main-color);
@@ -185,17 +125,44 @@ div {
   width: 24px;
 }
 .button-0 {
-  /* margin-top: 30vh; */
   font-size: 24px;
   margin: 15vh 0px 30vh 50px;
-  /* border: 2px solid var(--main-color); */
 }
 .button-0:hover {
   box-shadow: 0px 0px 5px 5px rgb(12, 166, 120, 0.8);
 }
 
+/* --- DIV'S --- */
+
+.subContainer {
+  display: flex;
+  box-sizing: border-box;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  border: 1px solid var(--main-color);
+  background-image: linear-gradient(
+    to right,
+    var(--left-gradient),
+    var(--main-color)
+  );
+  max-width: 750px;
+  min-width: 750px;
+  border-radius: 10px;
+}
+.subContainer div {
+  margin: 10px 0px 10px 25px;
+  padding: 0 10px;
+}
+.subContainer p {
+  display: inline-block;
+}
+div {
+  margin: 10px 0px 10px 25px;
+}
+
 .footer {
-  /* min-width: 960px; */
   height: 25px;
   margin-top: -25px;
   font-size: 18px;
@@ -205,6 +172,8 @@ div {
   background-color: var(--main-color);
   color: var(--font-color);
 }
+
+/* --- ANIMATIONS --- */
 
 .show {
   animation-name: FadeIn;
@@ -243,11 +212,12 @@ div {
   }
 }
 
+/* --- MEDIA --- */
 @media only screen and (min-width: 550px) and (max-width: 957px) {
   .container {
     margin-left: 5vh;
   }
-  .inputDiv {
+  .inputsDiv {
     flex-direction: column;
     margin: 0px;
   }
@@ -262,16 +232,16 @@ div {
   .conditionDiv select {
     margin-bottom: 15px;
   }
-  .containerDiv {
+  .subContainer {
     min-width: 350px;
     max-width: 350px;
     flex-direction: column;
   }
-  .containerDiv div {
+  .subContainer div {
     margin: 0px 0px 10px 0px;
   }
 
-  .containerDiv button {
+  .subContainer button {
     margin: 5px;
   }
 }
@@ -279,7 +249,7 @@ div {
   .container {
     margin-left: 0vh;
   }
-  .inputDiv {
+  .inputsDiv {
     flex-direction: column;
   }
   .conditionDiv,
@@ -293,16 +263,16 @@ div {
   .conditionDiv select {
     margin-bottom: 15px;
   }
-  .containerDiv {
+  .subContainer {
     min-width: 350px;
     max-width: 350px;
     flex-direction: column;
   }
-  .containerDiv div {
+  .subContainer div {
     margin: 0px 0px 10px 0px;
   }
 
-  .containerDiv button {
+  .subContainer button {
     margin: 5px;
   }
 }

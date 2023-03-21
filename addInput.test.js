@@ -4,6 +4,52 @@ const dom = new JSDOM();
 global.document = dom.window.document;
 const addInput = require("./addInput");
 
+const inputDepth_1 = `
+<div id="depth--0-0" class="depth--0">
+<div id="depth--1-0" class="depth--1">
+  <div class="subContainer show">
+    <div class="inputsDiv">
+      <div class="questionDiv">
+        <p>Question:</p>
+        <input
+          class="questionInput"
+          type="text"
+          placeholder="Ask question"
+          onfocus="this.placeholder=''"
+          onblur="this.placeholder = 'Ask question'"
+        />
+      </div>
+
+      <div class="typeDiv">
+        <p>Type:</p>
+        <select name="types" id="type">
+          <option value="yesno">Yes/No</option>
+          <option value="text">Text</option>
+          <option value="number">Number</option>
+        </select>
+      </div>
+    </div>
+    <div class="addButtonDiv">
+      <button onclick="verifyInput(this)" depth="1" whichdiv="0" id="button-1">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+          class="w-5 h-5 addIcon"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-11.25a.75.75 0 00-1.5 0v2.5h-2.5a.75.75 0 000 1.5h2.5v2.5a.75.75 0 001.5 0v-2.5h2.5a.75.75 0 000-1.5h-2.5v-2.5z"
+            clip-rule="evenodd"
+          ></path>
+        </svg>
+        <span>Add input</span>
+      </button>
+    </div>
+  </div>
+</div>
+</div>`;
+
 test("Creating element on depth=0", () => {
   // Set up
   document.body.innerHTML = `
@@ -34,7 +80,7 @@ test("Creating element on depth=0", () => {
 
   expect(document.body.innerHTML.replace(/\s/g, "")).toBe(
     `
-    <div id="depth--0-0" class="depth--0"><div id="depth--1-0" class="depth--1"><div class="containerDiv show"><div class="inputDiv">
+    <div id="depth--0-0" class="depth--0"><div id="depth--1-0" class="depth--1"><div class="subContainer show"><div class="inputsDiv">
     <div class="questionDiv">
         <p>Question:</p>
         <input class="questionInput" type="text" placeholder="Ask question" onfocus="this.placeholder=''" onblur="this.placeholder = 'Ask question'">
@@ -68,51 +114,7 @@ test("Creating element on depth=0", () => {
 
 test("Creating sub-element with type of Yes/No ", () => {
   // Set up
-  document.body.innerHTML = `
-  <div id="depth--0-0" class="depth--0">
-  <div id="depth--1-0" class="depth--1">
-    <div class="containerDiv show">
-      <div class="inputDiv">
-        <div class="questionDiv">
-          <p>Question:</p>
-          <input
-            class="questionInput"
-            type="text"
-            placeholder="Ask question"
-            onfocus="this.placeholder=''"
-            onblur="this.placeholder = 'Ask question'"
-          />
-        </div>
-
-        <div class="typeDiv">
-          <p>Type:</p>
-          <select name="types" id="type">
-            <option value="yesno">Yes/No</option>
-            <option value="text">Text</option>
-            <option value="number">Number</option>
-          </select>
-        </div>
-      </div>
-      <div class="addButtonDiv">
-        <button onclick="verifyInput(this)" depth="1" whichdiv="0" id="button-1">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-            class="w-5 h-5 addIcon"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-11.25a.75.75 0 00-1.5 0v2.5h-2.5a.75.75 0 000 1.5h2.5v2.5a.75.75 0 001.5 0v-2.5h2.5a.75.75 0 000-1.5h-2.5v-2.5z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
-          <span>Add input</span>
-        </button>
-      </div>
-    </div>
-  </div>
-</div>`;
+  document.body.innerHTML = inputDepth_1;
   const addButton = document.getElementById("button-1");
   const depth = Number(addButton.getAttribute("depth"));
   const whichDiv = Number(addButton.getAttribute("whichDiv"));
@@ -122,8 +124,8 @@ test("Creating sub-element with type of Yes/No ", () => {
   expect(document.body.innerHTML.replace(/\s/g, "")).toBe(
     `<div id="depth--0-0" class="depth--0">
     <div id="depth--1-0" class="depth--1">
-      <div class="containerDiv show">
-        <div class="inputDiv">
+      <div class="subContainer show">
+        <div class="inputsDiv">
           <div class="questionDiv">
             <p>Question:</p>
             <input
@@ -163,8 +165,8 @@ test("Creating sub-element with type of Yes/No ", () => {
         </div>
       </div>
       <div id="depth--2-0" class="depth--2">
-        <div class="containerDiv show">
-          <div class="inputDiv">
+        <div class="subContainer show">
+          <div class="inputsDiv">
             <div class="conditionDiv">
               <p>Condition:</p>
               <select name="conditions" id="condition">
@@ -240,51 +242,7 @@ test("Creating sub-element with type of Yes/No ", () => {
 
 test("Creating sub-element with type of Number ", () => {
   // Set up
-  document.body.innerHTML = `
-    <div id="depth--0-0" class="depth--0">
-    <div id="depth--1-0" class="depth--1">
-      <div class="containerDiv show">
-        <div class="inputDiv">
-          <div class="questionDiv">
-            <p>Question:</p>
-            <input
-              class="questionInput"
-              type="text"
-              placeholder="Ask question"
-              onfocus="this.placeholder=''"
-              onblur="this.placeholder = 'Ask question'"
-            />
-          </div>
-  
-          <div class="typeDiv">
-            <p>Type:</p>
-            <select name="types" id="type">
-              <option value="yesno">Yes/No</option>
-              <option value="text">Text</option>
-              <option value="number">Number</option>
-            </select>
-          </div>
-        </div>
-        <div class="addButtonDiv">
-          <button onclick="verifyInput(this)" depth="1" whichdiv="0" id="button-1">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              class="w-5 h-5 addIcon"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-11.25a.75.75 0 00-1.5 0v2.5h-2.5a.75.75 0 000 1.5h2.5v2.5a.75.75 0 001.5 0v-2.5h2.5a.75.75 0 000-1.5h-2.5v-2.5z"
-                clip-rule="evenodd"
-              ></path>
-            </svg>
-            <span>Add input</span>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>`;
+  document.body.innerHTML = inputDepth_1;
   const addButton = document.getElementById("button-1");
   const depth = Number(addButton.getAttribute("depth"));
   const whichDiv = Number(addButton.getAttribute("whichDiv"));
@@ -296,8 +254,8 @@ test("Creating sub-element with type of Number ", () => {
   expect(document.body.innerHTML.replace(/\s/g, "")).toBe(
     `<div id="depth--0-0" class="depth--0">
     <div id="depth--1-0" class="depth--1">
-      <div class="containerDiv show">
-        <div class="inputDiv">
+      <div class="subContainer show">
+        <div class="inputsDiv">
           <div class="questionDiv">
             <p>Question:</p>
             <input
@@ -337,8 +295,8 @@ test("Creating sub-element with type of Number ", () => {
         </div>
       </div>
       <div id="depth--2-0" class="depth--2">
-        <div class="containerDiv show">
-          <div class="inputDiv">
+        <div class="subContainer show">
+          <div class="inputsDiv">
             <div class="conditionDiv">
               <p>Condition</p>
               <select name="conditions" id="condition">
@@ -403,51 +361,7 @@ test("Creating sub-element with type of Number ", () => {
 
 test("Creating sub-element with type of Text ", () => {
   // Set up
-  document.body.innerHTML = `
-      <div id="depth--0-0" class="depth--0">
-      <div id="depth--1-0" class="depth--1">
-        <div class="containerDiv show">
-          <div class="inputDiv">
-            <div class="questionDiv">
-              <p>Question:</p>
-              <input
-                class="questionInput"
-                type="text"
-                placeholder="Ask question"
-                onfocus="this.placeholder=''"
-                onblur="this.placeholder = 'Ask question'"
-              />
-            </div>
-    
-            <div class="typeDiv">
-              <p>Type:</p>
-              <select name="types" id="type">
-                <option value="yesno">Yes/No</option>
-                <option value="text">Text</option>
-                <option value="number">Number</option>
-              </select>
-            </div>
-          </div>
-          <div class="addButtonDiv">
-            <button onclick="verifyInput(this)" depth="1" whichdiv="0" id="button-1">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                class="w-5 h-5 addIcon"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-11.25a.75.75 0 00-1.5 0v2.5h-2.5a.75.75 0 000 1.5h2.5v2.5a.75.75 0 001.5 0v-2.5h2.5a.75.75 0 000-1.5h-2.5v-2.5z"
-                  clip-rule="evenodd"
-                ></path>
-              </svg>
-              <span>Add input</span>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>`;
+  document.body.innerHTML = inputDepth_1;
   const addButton = document.getElementById("button-1");
   const depth = Number(addButton.getAttribute("depth"));
   const whichDiv = Number(addButton.getAttribute("whichDiv"));
@@ -459,8 +373,8 @@ test("Creating sub-element with type of Text ", () => {
   expect(document.body.innerHTML.replace(/\s/g, "")).toBe(
     `<div id="depth--0-0" class="depth--0">
     <div id="depth--1-0" class="depth--1">
-      <div class="containerDiv show">
-        <div class="inputDiv">
+      <div class="subContainer show">
+        <div class="inputsDiv">
           <div class="questionDiv">
             <p>Question:</p>
             <input
@@ -500,8 +414,8 @@ test("Creating sub-element with type of Text ", () => {
         </div>
       </div>
       <div id="depth--2-0" class="depth--2">
-        <div class="containerDiv show">
-          <div class="inputDiv">
+        <div class="subContainer show">
+          <div class="inputsDiv">
             <div class="conditionDiv">
               <p>Condition:</p>
               <select name="conditions" id="condition">
